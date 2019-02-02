@@ -8,3 +8,18 @@ befor oop ,we had produced of programming that invided the program into a set of
 there is so much interdepency between all these functions,it becomes problematic, oop came to solve this problem.
 in oop we combine a group of related variables and functions in a unit , we call that unit an object;
 variables=>properties     ...     functions=>methods
+
+
+2)Abstraction:
+we can hide some of the properties and methods from the outside of an object and this gives us a couple of benefits ,
+first is that we'll be able to make the interface of those object simpler .
+using and understanding an object with few properties and methods is easier than an object with several properties & methods .
+2nd benefit is that helps us reduce the impact of changes;
+
+
+3)Inheritence:   is a mechanism that allows us to eliminate redundant code;
+
+
+ 4)polymorphism:  
+ polymorphism means "many forms" in oop .
+ polymorphism is a technique that allows us to refactory ugly switch & case statement;
