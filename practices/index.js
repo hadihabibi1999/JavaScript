@@ -1,22 +1,18 @@
-function changeTime() {
-    let time = new Date();
-    let hr  = time.getHours();
-    let mn = time.getMinutes();
-    let sc = time.getSeconds();
-    
-    hr=checkTime('hr');
-    mn=checkTime('mn');
-    sc=checkTime('sc');
 
-    document.getElementById("hr").innerHTML=hr;
-    document.getElementById("mn").innerHTML=mn;
-    document.getElementById("sc").innerHTML=sc;
+function startTime() {
 
-    let t = setTimeout("changeTime",500)
-
-    function checkTime(id) {
-        if (id<10)
-        id='0'+id;
-        return id;
-    }
+  let today = new Date();
+  let h = today.getHours();
+  let m = today.getMinutes();
+  let s = today.getSeconds();
+  m = checkTime(m);
+  s = checkTime(s);
+  document.getElementById('txt').innerHTML =
+  h + ":" + m + ":" + s;
+  var t = setTimeout(startTime, 500);
+}
+function checkTime(i) {
+  if (i < 10) 
+  i='0'+i;
+  return i;
 }

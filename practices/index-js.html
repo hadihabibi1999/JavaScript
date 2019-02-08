@@ -1,46 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-    <title>Document</title>
-    <script src="index.js"></script>
-    <style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+  <title>clock</title>
+  <script src="index.js"></script>
+  <style>
 
-   body{
-        background: rgb(194, 194, 199);
-        color:white;
-        margin:20% 40%;
-    }
-    div{
-        position:relative;
-        text-align: center;
-        width: 85px;
-        height:85px;
-        box-shadow:0 0 20px lightblue;
-        display: inline;
-        font-size: 20px;
-        padding: 15px;
-        margin-left: 8px;
-        margin-right: 8px;
-    }
-    
-    
-    
-    
-    </style>
-  </head>
-  <body onload="changeTime()">
-      
-                 <div  id="hr">00</div>
-                 :
-                 <div  id="mn">00</div>
-                 :
-                 <div  id="sc">00</div>
-          
-                 <script type="text-/javascript" src="index.js"></script>
+ body{
+        padding: 200px;
+      background: rgb(194, 194, 199);
+      color:white;
+  }
+
+  div{
+      position:relative;
+      margin-left: 8px;
+      margin-right:8px;
+      text-align: center;
+      box-shadow: 0 0 20px lightblue;
+
+      display: inline;
+      font-size: 250px;
+  }
+ 
+  </style>
+</head>
+<body onload="startTime()">
+       <div id="txt"></div>
+    <script type="text-/javascript" src="index.js"></script>
+
 </body>
 </html>
