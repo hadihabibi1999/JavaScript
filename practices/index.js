@@ -1,16 +1,21 @@
 
 function startTime() {
 
-  let today = new Date();
-  let h = today.getHours();
-  let m = today.getMinutes();
-  let s = today.getSeconds();
+  let date = new Date();
+  let h = date.getHours();
+  let m = date.getMinutes();
+  let s = date.getSeconds();
+
   m = checkTime(m);
   s = checkTime(s);
-  document.getElementById('txt').innerHTML =
-  h + ":" + m + ":" + s;
-  var t = setTimeout(startTime, 500);
+
+  document.getElementById('h').innerHTML = h;
+  document.getElementById('m').innerHTML = m;
+  document.getElementById('s').innerHTML = s;
+
+  setTimeout(startTime, 1000);
 }
+
 function checkTime(i) {
   if (i < 10) 
   i='0'+i;

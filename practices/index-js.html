@@ -1,38 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
-  <title>clock</title>
-  <script src="index.js"></script>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+        <script  src="index.js"></script>
   <style>
 
  body{
-        padding: 200px;
-      background: rgb(194, 194, 199);
-      color:white;
+     
+      background: rgb(110, 110, 221);
+      color:rgb(214, 211, 211);
   }
 
-  div{
-      position:relative;
-      margin-left: 8px;
-      margin-right:8px;
+  #h,#m,#s{
+    position:relative;
+    top:300px;
+      margin-left: 5px;
+      margin-right:5px;
       text-align: center;
-      box-shadow: 0 0 20px lightblue;
-
-      display: inline;
-      font-size: 250px;
+      box-shadow: 0 0 10px rgb(144, 164, 230);
+      font-size: 100px;
   }
+
+  @-webkit-keyframes blinker {
+  from {opacity: 1.0;}
+  to {opacity: 0.0;}
+}
+  .p{
+    
+     position: absolute;
+     margin-left:290px;
+     margin-top:130px;
+     font-size: 100px;
+     text-decoration: blink;
+	-webkit-animation-name: blinker;
+	-webkit-animation-duration: 0.6s;
+	-webkit-animation-iteration-count:infinite;
+	-webkit-animation-timing-function:ease-in-out;
+	-webkit-animation-direction: alternate;
+  }
+
  
   </style>
 </head>
+
 <body onload="startTime()">
-       <div id="txt"></div>
-    <script type="text-/javascript" src="index.js"></script>
+
+    <div class="container">
+           <div class="row">
+              <div class="col-sm-4"><p id="h"></p><p class="p">:</p></div>
+              <div class="col-sm-4"><p id="m"></p><p class="p">:</p></div> 
+              <div class="col-sm-4"><p id="s"></p></div>
+           </div>
+   </div>
 
 </body>
 </html>
