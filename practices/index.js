@@ -1,80 +1,134 @@
+/*
+TODO:
+    Limit number input
+    Disallow . from being entered multiple times
+    Clean up structure
+*/
 
-var canvas = document.getElementById("canvas");
-var ctx = canvas.getContext("2d");
-var radius = canvas.height / 2;
-ctx.translate(radius, radius);
-radius = radius * 0.90
-setInterval(drawClock, 1000);
+(function() {
+  "use strict";
 
-function drawClock() {
-  drawFace(ctx, radius);
-  drawNumbers(ctx, radius);
-  drawTime(ctx, radius);
-}
+  // Shortcut to get elements
+  var el = function(element) {
+    if (element.charAt(0) === "#") { // If passed an ID...
+      return document.querySelector(element); // ... returns single element
+    }
 
-function drawFace(ctx, radius) {
-  var grad;
-  ctx.beginPath();
-  ctx.arc(0, 0, radius, 0, 2*Math.PI);
-  ctx.fillStyle = 'white';
-  ctx.fill();
-  grad = ctx.createRadialGradient(0,0,radius*0.95, 0,0,radius*1.05);
-  grad.addColorStop(0, '#333');
-  grad.addColorStop(0.5, 'white');
-  grad.addColorStop(1, '#333');
-  ctx.strokeStyle = grad;
-  ctx.lineWidth = radius*0.1;
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.arc(0, 0, radius*0.1, 0, 2*Math.PI);
-  ctx.fillStyle = '#333';
-  ctx.fill();
-}
+    return document.querySelectorAll(element); // Otherwise, returns a nodelist
+  };
 
-function drawNumbers(ctx, radius) {
-  var ang;
-  var num;
-  ctx.font = radius*0.15 + "px arial";
-  ctx.textBaseline="middle";
-  ctx.textAlign="center";
-  for(num = 1; num < 13; num++){
-    ang = num * Math.PI / 6;
-    ctx.rotate(ang);
-    ctx.translate(0, -radius*0.85);
-    ctx.rotate(-ang);
-    ctx.fillText(num.toString(), 0, 0);
-    ctx.rotate(ang);
-    ctx.translate(0, radius*0.85);
-    ctx.rotate(-ang);
+  // Variables
+  var viewer = el("#viewer"), // Calculator screen where result is displayed
+    equals = el("#equals"), // Equal button
+    nums = el(".num"), // List of numbers
+    ops = el(".ops"), // List of operators
+    theNum = "", // Current number
+    oldNum = "", // First number
+    resultNum, // Result
+    operator; // Batman
+
+  // When: Number is clicked. Get the current number selected
+  var setNum = function() {
+    if (resultNum) { // If a result was displayed, reset number
+      theNum = this.getAttribute("data-num");
+      resultNum = "";
+    } else { // Otherwise, add digit to previous number (this is a string!)
+      theNum += this.getAttribute("data-num");
+    }
+
+    viewer.innerHTML = theNum; // Display current number
+
+  };
+
+  // When: Operator is clicked. Pass number to oldNum and save operator
+  var moveNum = function() {
+    oldNum = theNum;
+    theNum = "";
+    operator = this.getAttribute("data-ops");
+
+    equals.setAttribute("data-result", ""); // Reset result in attr
+  };
+
+  // When: Equals is clicked. Calculate result
+  var displayNum = function() {
+
+    // Convert string input to numbers
+    oldNum = parseFloat(oldNum);
+    theNum = parseFloat(theNum);
+
+    // Perform operation
+    switch (operator) {
+      case "plus":
+        resultNum = oldNum + theNum;
+        break;
+
+      case "minus":
+        resultNum = oldNum - theNum;
+        break;
+
+      case "times":
+        resultNum = oldNum * theNum;
+        break;
+
+      case "divided by":
+        resultNum = oldNum / theNum;
+        break;
+
+        // If equal is pressed without an operator, keep number and continue
+      default:
+        resultNum = theNum;
+    }
+
+    // If NaN or Infinity returned
+    if (!isFinite(resultNum)) {
+      if (isNaN(resultNum)) { // If result is not a number; set off by, eg, double-clicking operators
+        resultNum = "You broke it!";
+      } else { // If result is infinity, set off by dividing by zero
+        resultNum = "Look at what you've done";
+        el('#calculator').classList.add("broken"); // Break calculator
+        el('#reset').classList.add("show"); // And show reset button
+      }
+    }
+
+    // Display result, finally!
+    viewer.innerHTML = resultNum;
+    equals.setAttribute("data-result", resultNum);
+
+    // Now reset oldNum & keep result
+    oldNum = 0;
+    theNum = resultNum;
+
+  };
+
+  // When: Clear button is pressed. Clear everything
+  var clearAll = function() {
+    oldNum = "";
+    theNum = "";
+    viewer.innerHTML = "0";
+    equals.setAttribute("data-result", resultNum);
+  };
+
+  /* The click events */
+
+  // Add click event to numbers
+  for (var i = 0, l = nums.length; i < l; i++) {
+    nums[i].onclick = setNum;
   }
-}
 
-function drawTime(ctx, radius){
-    var now = new Date();
-    var hour = now.getHours();
-    var minute = now.getMinutes();
-    var second = now.getSeconds();
-  
-    hour=hour%12;
-    hour=(hour*Math.PI/6)+
-    (minute*Math.PI/(6*60))+
-    (second*Math.PI/(360*60));
-    drawHand(ctx, hour, radius*0.5, radius*0.07);
-    
-    minute=(minute*Math.PI/30)+(second*Math.PI/(30*60));
-    drawHand(ctx, minute, radius*0.8, radius*0.07);
-    
-    second=(second*Math.PI/30);
-    drawHand(ctx, second, radius*0.9, radius*0.02);
-}
+  // Add click event to operators
+  for (var i = 0, l = ops.length; i < l; i++) {
+    ops[i].onclick = moveNum;
+  }
 
-function drawHand(ctx, pos, length, width) {
-    ctx.beginPath();
-    ctx.lineWidth = width;
-    ctx.lineCap = "round";
-    ctx.moveTo(0,0);
-    ctx.rotate(pos);
-    ctx.lineTo(0, -length);
-    ctx.stroke();
-    ctx.rotate(-pos);
-}
+  // Add click event to equal sign
+  equals.onclick = displayNum;
+
+  // Add click event to clear button
+  el("#clear").onclick = clearAll;
+
+  // Add click event to reset button
+  el("#reset").onclick = function() {
+    window.location = window.location;
+  };
+
+}());
