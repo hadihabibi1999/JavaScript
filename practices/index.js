@@ -1,30 +1,14 @@
-class A {
-    constructor(age){
-      this.age=age;
-    }
-  
-    call(name){
-      console.log(`name: ${name} & age: ${this.age} !`);
-    }
-  }
-  
-  class B extends A {
-      constructor(){
-        super(19.5);
-      }
-  }
-  
-  const newB = new B();
-  newB.call('Hadi');
-  
+//let promise = new Promise(resolve=>resolve('hi world ...'));
+//promise.then(alert);
 
-  /*
-   1) class B is child of class A 
-   2) constructor is the 1st function whitch is called 
-   3) 'new' key :{
-       1)it makes an empty object
-       2)calls constructor function 
-       3)inputs all properties into it 
-       4)returns all of them }
-   4)in super we transfer props from child (B) to (A) , (A) gets it by constructor();    
-  */
+/*
+let promise = new Promise(function(resolve){
+setTimeout(()=>resolve('hi'),2000)
+})
+promise.then(alert);
+*/
+
+let promise = new Promise(resolve => {
+  setTimeout(() => fresolve("hi world ..."), 1000)
+});
+promise.then(alert); 
